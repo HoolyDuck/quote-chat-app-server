@@ -1,4 +1,3 @@
-import { userService } from "../services";
-import { AuthController } from "./auth.controller";
+import { OauthController } from "./oauth/oauth.controller";
 
-export const authController = new AuthController(userService);
+export const oauthController = new OauthController();
