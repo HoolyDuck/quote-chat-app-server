@@ -12,6 +12,12 @@ class UserService {
   async createUser(createUserDto: CreateUserDto): Promise<DbUser> {
     return User.create(createUserDto);
   }
+
+  async getUserById(userId: string): Promise<DbUser | null> {
+    return User.findOne({
+      _id: userId,
+    });
+  }
 }
 
 export { UserService };
