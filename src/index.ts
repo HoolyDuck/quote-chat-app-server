@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import passport from "passport";
 import { googleStrategy } from "./lib/passport-oauth/passport-oauth";
 import { ENV_VARS } from "./common/constants/env-vars";
+import { oauthRouter } from "./routes/oauth.routes";
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
@@ -24,21 +25,7 @@ app.get("/", async (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });
 
-app.get(
-  "/auth/google",
-  passport.authenticate("google", { scope: ["profile"], session: false })
-);
-
-app.get(
-  "/auth/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: "/login",
-    session: false,
-  }),
-  (req: Request, res: Response) => {
-    res.redirect("/");
-  }
-);
+app.use(oauthRouter)
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
