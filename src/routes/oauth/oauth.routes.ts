@@ -1,21 +1,21 @@
 import { Router } from "express";
 import passport from "passport";
-import { authController } from "../controllers";
+import { oauthController } from "../../controllers";
 
 const oauthRouter = Router();
 
 oauthRouter.get(
-  "/auth/google",
+  "/google",
   passport.authenticate("google", { scope: ["profile"], session: false })
 );
 
 oauthRouter.get(
-  "/auth/google/callback",
+  "/google/callback",
   passport.authenticate("google", {
     failureRedirect: "/login",
     session: false,
   }),
-  authController.login
+  oauthController.login
 );
 
 export { oauthRouter };

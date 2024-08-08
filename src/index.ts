@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import passport from "passport";
 import { googleStrategy } from "./lib/passport-oauth/passport-oauth";
 import { ENV_VARS } from "./common/constants/env-vars";
-import { oauthRouter } from "./routes/oauth.routes";
+import { oauthRouter } from "./routes/oauth/oauth.routes";
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
@@ -25,7 +25,7 @@ app.get("/", async (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });
 
-app.use(oauthRouter)
+app.use("/oauth", oauthRouter);
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
