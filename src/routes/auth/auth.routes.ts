@@ -1,21 +1,23 @@
 import { Router } from "express";
 import passport from "passport";
-import { oauthController } from "../../controllers";
+import { authController } from "../../controllers";
 
-const oauthRouter = Router();
+const authRouter = Router();
 
-oauthRouter.get(
+authRouter.get(
   "/google",
   passport.authenticate("google", { scope: ["profile"], session: false })
 );
 
-oauthRouter.get(
+authRouter.get(
   "/google/callback",
   passport.authenticate("google", {
     failureRedirect: "/login",
     session: false,
   }),
-  oauthController.login
+  authController.login
 );
 
-export { oauthRouter };
+authRouter.post("/refresh", authController.refresh);
+
+export { authRouter };

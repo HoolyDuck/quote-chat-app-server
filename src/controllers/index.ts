@@ -1,3 +1,3 @@
-import { OauthController } from "./oauth/oauth.controller";
+import { AuthController } from "./auth/auth.controller";
 
-export const oauthController = new OauthController();
+export const authController = new AuthController();
