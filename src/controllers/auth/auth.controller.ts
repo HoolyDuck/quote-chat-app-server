@@ -47,6 +47,10 @@ class AuthController {
       refreshToken: newRefreshToken,
     });
   }
+
+  async getProfile(req: Request, res: Response) {
+    res.json(req.user);
+  }
 }
 
 export { AuthController };

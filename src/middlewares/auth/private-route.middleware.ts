@@ -1,4 +1,4 @@
-import e, { RequestHandler } from "express";
+import { RequestHandler } from "express";
 import { checkAccessToken } from "../../common/utils/auth-tokens.utils";
 import { userService } from "../../services";
 
@@ -14,8 +14,8 @@ const privateRouteMiddleware: RequestHandler = async (req, res, next) => {
   const accessPayload = checkAccessToken(accessToken);
 
   if (!accessPayload) {
-    return res.status(401).json({
-      message: "Unauthorized",
+    return res.status(403).json({
+      message: "Token is invalid",
     });
   }
 
