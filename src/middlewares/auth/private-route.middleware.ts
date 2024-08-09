@@ -28,7 +28,6 @@ const privateRouteMiddleware: RequestHandler = async (req, res, next) => {
   }
 
   req.user = user;
-  console.log(req);
   return next();
 };
 
