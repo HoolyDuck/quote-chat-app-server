@@ -6,7 +6,7 @@ import passport from "passport";
 import { googleStrategy } from "./lib/passport-oauth/passport-oauth";
 import { ENV_VARS } from "./common/constants/env-vars";
 import { authRouter } from "./routes/auth/auth.routes";
-import { privateRouteMiddleware } from "./middlewares/auth/private-route.middleware";
+import cors from "cors";
 import cookieParser from "cookie-parser";
 
 const app: Express = express();
@@ -21,6 +21,8 @@ db.once("open", () => console.log("[database]: Connected to database"));
 app.use(express.json());
 app.use(passport.initialize());
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors({ origin: ENV_VARS.FRONTEND_URL, credentials: true }));
 
 passport.use(googleStrategy);
 
