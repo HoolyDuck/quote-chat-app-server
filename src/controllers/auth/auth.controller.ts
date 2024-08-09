@@ -1,3 +1,4 @@
+import { ENV_VARS } from "../../common/constants/env-vars";
 import { DbUser } from "../../common/types/user/db-user.type";
 import {
   checkRefreshToken,
@@ -21,7 +22,7 @@ class AuthController {
     res.cookie("access_token", accessToken, cookieSettings);
     res.cookie("refresh_token", refreshToken, cookieSettings);
 
-    res.redirect("http://localhost:3000");
+    res.redirect(`${ENV_VARS.FRONTEND_URL}/`);
   }
 
   async refresh(req: Request, res: Response) {
