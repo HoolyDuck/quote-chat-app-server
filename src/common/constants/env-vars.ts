@@ -1,0 +1,10 @@
+export const ENV_VARS = {
+  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+  API_URL: process.env.API_URL,
+  PORT: process.env.PORT,
+  DATABASE_URL: process.env.DATABASE_URL,
+  ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
+  REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET,
+  FRONTEND_URL: process.env.FRONTEND_URL,
+};
