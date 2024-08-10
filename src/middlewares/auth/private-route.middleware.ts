@@ -3,12 +3,16 @@ import { checkAccessToken } from "../../common/utils/auth-tokens.utils";
 import { userService } from "../../services";
 
 const privateRouteMiddleware: RequestHandler = async (req, res, next) => {
-  const accessToken = req.cookies["access_token"];
+  let accessToken = req.cookies["access_token"] || req.headers["authorization"];
 
   if (!accessToken) {
     return res.status(401).json({
       message: "Unauthorized",
     });
+  }
+
+  if (accessToken.startsWith("Bearer ")) {
+    accessToken = accessToken.split("Bearer ")[1];
   }
 
   const accessPayload = checkAccessToken(accessToken);
