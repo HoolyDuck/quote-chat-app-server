@@ -1,6 +1,6 @@
 import { CreateUserDto } from "../../common/types/user/create-user-dto.type";
 import { DbUser } from "../../common/types/user/db-user.type";
-import { User } from "../../entities/user/user.entity";
+import { User } from "../../models/user/user.model";
 
 class UserService {
   async getUserByGoogleId(googleId: string): Promise<DbUser | null> {
