@@ -23,6 +23,7 @@ app.use(passport.initialize());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: ENV_VARS.FRONTEND_URL, credentials: true }));
+app.set("trust proxy", 1);
 
 passport.use(googleStrategy);
 
