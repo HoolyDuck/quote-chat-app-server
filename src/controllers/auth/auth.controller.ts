@@ -8,7 +8,7 @@ import { CookieOptions, Request, Response } from "express";
 
 const cookieSettings: CookieOptions = {
   httpOnly: true,
-  sameSite: "lax",
+  sameSite: "none",
   secure: process.env.NODE_ENV === "production",
   domain: process.env.NODE_ENV === "production" ? ENV_VARS.COOKIE_DOMAIN : "",
   maxAge: 1000 * 60 * 60 * 24 * 7,
