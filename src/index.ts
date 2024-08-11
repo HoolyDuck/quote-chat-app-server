@@ -5,9 +5,9 @@ import mongoose from "mongoose";
 import passport from "passport";
 import { googleStrategy } from "./lib/passport-oauth/passport-oauth";
 import { ENV_VARS } from "./common/constants/env-vars";
-import { authRouter } from "./routes/auth/auth.routes";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import { appRouter } from "./routes/router";
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
@@ -30,7 +30,7 @@ app.get("/", async (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });
 
-app.use("/auth", authRouter);
+app.use(appRouter);
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);

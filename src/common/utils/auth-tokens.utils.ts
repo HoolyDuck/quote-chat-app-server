@@ -14,7 +14,7 @@ const getTokens = (id: string) => {
     expiresIn: "7d",
   });
   const accessToken = jwt.sign({ id }, ENV_VARS.ACCESS_TOKEN_SECRET!, {
-    expiresIn: "15m",
+    expiresIn: "1h",
   });
 
   return { refreshToken, accessToken };
