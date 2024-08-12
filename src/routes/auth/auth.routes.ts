@@ -23,6 +23,4 @@ authRouter.get(
 authRouter.post("/refresh", authController.refresh);
 authRouter.get("/profile", privateRouteMiddleware, authController.getProfile);
 
-authRouter.get("/test", authController.test);
-
 export { authRouter };
