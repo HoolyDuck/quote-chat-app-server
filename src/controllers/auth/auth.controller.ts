@@ -26,6 +26,11 @@ class AuthController {
     res.redirect(`${ENV_VARS.FRONTEND_URL}/`);
   }
 
+  async test(req: Request, res: Response) {
+    res.cookie("test", "test", cookieSettings);
+    res.json({ message: "Test cookie set" });
+  }
+
   async refresh(req: Request, res: Response) {
     const refreshToken = req.cookies["refresh_token"];
 
