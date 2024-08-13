@@ -7,4 +7,5 @@ export type DbMessage = {
   chat: mongoose.Types.ObjectId | DbChat;
   content: string;
   sender?: mongoose.Types.ObjectId | DbUser;
+  createdAt: Date;
 };
