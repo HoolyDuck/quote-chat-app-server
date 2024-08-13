@@ -8,9 +8,16 @@ import { ENV_VARS } from "./common/constants/env-vars";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { appRouter } from "./routes/router";
+import http from "node:http";
+import { Server } from "socket.io";
+import { socketService } from "./services";
+import { authorizeSocket } from "./lib/socket/authorize-socket";
+import { CreateMessageDto } from "./common/types/message/create-message.dto";
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
+
+const server = http.createServer(app);
 
 mongoose.connect(ENV_VARS.DATABASE_URL!, {});
 const db = mongoose.connection;
@@ -39,6 +46,27 @@ app.get("/", async (req: Request, res: Response) => {
 
 app.use(appRouter);
 
-app.listen(port, () => {
+const io = new Server(server, {
+  cors: {
+    origin: ENV_VARS.FRONTEND_URL,
+    credentials: true,
+  },
+});
+
+io.use(authorizeSocket);
+io.on("connection", (socket) => {
+  console.log("[websocket]: a user connected");
+
+  socket.on("send_message", async ({ createMessageDto, chatId }) => {
+    await socketService.sendMessage(socket, createMessageDto, chatId);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("[websocket]: user disconnected");
+  });
+});
+
+server.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
+  console.log(`[websocket]: Websocket is running at ws://localhost:${port}`);
 });
