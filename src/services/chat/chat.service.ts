@@ -21,8 +21,6 @@ class ChatService {
       return Chat.find({ author: user._id }).populate("messages");
     }
 
-    console.log(getChatsParams);
-
     const chats = await Chat.find({
       author: user._id,
       $or: [
