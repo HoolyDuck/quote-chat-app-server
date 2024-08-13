@@ -2,8 +2,7 @@ import { Socket } from "socket.io";
 import { MessageService } from "../message/message.service";
 import { CreateMessageDto } from "../../common/types/message/create-message.dto";
 import { DbUser } from "../../common/types/user/db-user.type";
-
-const funnyText = "I am a bot and I am here to help you.";
+import { fetchQuote } from "../../common/utils/fetch-quote.utils";
 
 class SocketService {
   #messageService: MessageService;
@@ -27,8 +26,9 @@ class SocketService {
 
       socket.emit("message_sent", message);
       const timeout = setTimeout(async () => {
+        const botResponse = await fetchQuote();
         const res = await this.#messageService.create(
-          { content: funnyText },
+          { content: botResponse },
           chatId
         );
         socket.emit("response", res);
