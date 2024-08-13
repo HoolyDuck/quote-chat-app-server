@@ -20,6 +20,10 @@ class AuthController {
 
     const { accessToken, refreshToken } = getTokens(_id.toString());
 
+    // clear cookies
+    res.clearCookie("access_token");
+    res.clearCookie("refresh_token");
+
     res.cookie("access_token", accessToken, cookieSettings);
     res.cookie("refresh_token", refreshToken, cookieSettings);
 
@@ -39,6 +43,9 @@ class AuthController {
 
     const { id } = refreshPayload;
     const { accessToken, refreshToken: newRefreshToken } = getTokens(id);
+
+    res.clearCookie("access_token");
+    res.clearCookie("refresh_token");
 
     res.cookie("access_token", accessToken, cookieSettings);
     res.cookie("refresh_token", newRefreshToken, cookieSettings);
