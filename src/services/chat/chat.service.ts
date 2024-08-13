@@ -16,7 +16,7 @@ class ChatService {
   }
 
   async getChats(user: DbUser) {
-    return Chat.find({ author: user._id });
+    return Chat.find({ author: user._id }).populate("messages");
   }
 
   async getChatById(id: string, user: DbUser) {
@@ -30,7 +30,7 @@ class ChatService {
       throw new Error("Forbidden");
     }
 
-    return chat;
+    return chat.populate("messages");
   }
 
   async deleteChat(id: string) {
