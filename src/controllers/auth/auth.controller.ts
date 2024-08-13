@@ -27,7 +27,7 @@ class AuthController {
     res.cookie("access_token", accessToken, cookieSettings);
     res.cookie("refresh_token", refreshToken, cookieSettings);
 
-    res.redirect(`${ENV_VARS.FRONTEND_URL}/`);
+    res.redirect(`${ENV_VARS.FRONTEND_URL}/chat`);
   }
 
   async refresh(req: Request, res: Response) {
@@ -51,13 +51,21 @@ class AuthController {
     res.cookie("refresh_token", newRefreshToken, cookieSettings);
 
     res.status(200).json({
-      accessToken,
-      refreshToken: newRefreshToken,
+      message: "Refreshed",
     });
   }
 
   async getProfile(req: Request, res: Response) {
     res.json(req.user);
+  }
+
+  async logout(req: Request, res: Response) {
+    res.clearCookie("access_token");
+    res.clearCookie("refresh_token");
+
+    res.status(200).json({
+      message: "Logged out",
+    });
   }
 }
 
