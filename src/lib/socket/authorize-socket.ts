@@ -9,7 +9,7 @@ const authorizeSocket = async (
   next: (err?: ExtendedError) => void
 ) => {
   const handshakeCookies = socket.handshake.headers.cookie;
-  console.log(handshakeCookies);
+
   if (!handshakeCookies) {
     return next(new Error("Unauthorized"));
   }

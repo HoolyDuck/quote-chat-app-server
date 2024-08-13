@@ -10,7 +10,7 @@ class MessageService {
     chatId: string,
     userId?: string
   ) {
-    console.log("chatId", chatId);
+
     const chat = await Chat.findById(chatId);
     if (!chat) {
       throw new Error("Chat not found");
