@@ -26,7 +26,7 @@ class MessageService {
     chat.messages.push(message._id);
     await chat.save();
 
-    return message;
+    return message.populate("chat");
   }
 }
 
