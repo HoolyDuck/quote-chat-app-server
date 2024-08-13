@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { ChatService } from "../../services/chat/chat.service";
 import { DbUser } from "../../common/types/user/db-user.type";
+import { GetChatsParams } from "../../common/types/chat/get-chats-params.type";
 
 class ChatController {
   private chatService: ChatService;
@@ -17,7 +18,8 @@ class ChatController {
 
   getChats = async (req: Request, res: Response) => {
     const user = <DbUser>req.user;
-    const chats = await this.chatService.getChats(user);
+    const params = <GetChatsParams>req.query;
+    const chats = await this.chatService.getChats(user, params);
     res.json({ chats });
   };
 

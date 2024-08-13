@@ -8,4 +8,5 @@ export const ENV_VARS = {
   REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET,
   FRONTEND_URL: process.env.FRONTEND_URL,
   COOKIE_DOMAIN: process.env.COOKIE_DOMAIN,
+  NINJA_API_KEY: process.env.NINJA_API_KEY,
 };

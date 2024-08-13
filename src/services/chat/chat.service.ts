@@ -1,4 +1,5 @@
 import { CreateChatDto } from "../../common/types/chat/create-chat.dto";
+import { GetChatsParams } from "../../common/types/chat/get-chats-params.type";
 import { DbUser } from "../../common/types/user/db-user.type";
 import { Chat } from "../../models/chat/chat.model";
 import { User } from "../../models/user/user.model";
@@ -15,8 +16,22 @@ class ChatService {
     return chat;
   }
 
-  async getChats(user: DbUser) {
-    return Chat.find({ author: user._id });
+  async getChats(user: DbUser, getChatsParams?: GetChatsParams) {
+    if (!getChatsParams?.name) {
+      return Chat.find({ author: user._id }).populate("messages");
+    }
+
+    console.log(getChatsParams);
+
+    const chats = await Chat.find({
+      author: user._id,
+      $or: [
+        { firstName: { $regex: `^${getChatsParams?.name}`, $options: "i" } },
+        { lastName: { $regex: `^${getChatsParams?.name}`, $options: "i" } },
+      ],
+    }).populate("messages");
+
+    return chats;
   }
 
   async getChatById(id: string, user: DbUser) {
@@ -30,7 +45,7 @@ class ChatService {
       throw new Error("Forbidden");
     }
 
-    return chat;
+    return chat.populate("messages");
   }
 
   async deleteChat(id: string) {
@@ -46,7 +61,9 @@ class ChatService {
   }
 
   async updateChat(id: string, updateChatDto: CreateChatDto) {
-    return Chat.findByIdAndUpdate(id, updateChatDto, { new: true });
+    return Chat.findByIdAndUpdate(id, updateChatDto, { new: true }).populate(
+      "messages"
+    );
   }
 }
 
