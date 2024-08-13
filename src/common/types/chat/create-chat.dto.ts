@@ -1,4 +1,4 @@
 export type CreateChatDto = {
-  fullName: string;
+  firstName: string;
   lastName: string;
 };
